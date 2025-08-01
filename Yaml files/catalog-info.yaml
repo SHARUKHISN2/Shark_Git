@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: my-first-service
+  description: My first Backstage service!
+spec:
+  type: service
+  lifecycle: experimental
+  owner: user:guest
