@@ -7,14 +7,4 @@ metadata:
 spec:
   type: service
   lifecycle: experimental
-  owner: user:shark
----
-# User
-apiVersion: backstage.io/v1alpha1
-kind: User
-metadata:
-  name: shark
-spec:
-  profile:
-    displayName: Shark
-    email: imsharukhisn2@gmail.com
+  owner: user:guest
