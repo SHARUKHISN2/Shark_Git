@@ -1,0 +1,40 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: website-validator
+  title: Website Validator Script
+  description: Generates a script to validate website availability.
+spec:
+  owner: user:guest
+  type: service
+
+  parameters:
+    - title: Input Settings
+      required:
+        - websiteUrl
+      properties:
+        websiteUrl:
+          type: string
+          title: Website URL
+          description: The URL to validate
+
+  steps:
+    - id: fetch-template
+      name: Fetch base template
+      action: fetch:template
+      input:
+        url: ./Playwright
+        values:
+          websiteUrl: '{{ parameters.websiteUrl }}'
+
+    - id: run-script
+      name: Run the script
+      action: run:script
+      input:
+        script: |
+          Final.py "{{ parameters.websiteUrl }}"
+
+  output:
+    text:
+      - title: Done
+        content: Your website validation has been completed.
