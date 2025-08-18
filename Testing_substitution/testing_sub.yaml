@@ -1,0 +1,61 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: test-template-substitution
+  title: Test Template Substitution
+  description: Test if fetch:template replaces placeholders
+spec:
+  owner: user:guest
+  type: service
+
+  parameters:
+    - title: Test Inputs
+      required:
+        - env
+        - ami
+      properties:
+        env:
+          type: string
+          title: Environment
+          default: dev
+        ami:
+          type: string
+          title: AMI ID
+          default: ami-test123
+
+  steps:
+    - id: fetch-module
+      name: Copy and substitute module
+      action: fetch:template
+      input:
+        url: ../Testing_module
+        targetPath: ./output/Testing_module
+        values:
+          env: ${{ parameters.env }}
+          ami: ${{ parameters.ami }}
+
+    # - id: publish-test-repo
+    #   name: Publish to GitHub
+    #   action: publish:github
+    #   input:
+    #     allowedHosts: ["github.com"]
+    #     repoUrl: github.com?owner=AZU-RDIT&repo=dl-aws-module
+    #     # repoVisibility: private
+    #     description: "Test output from Backstage template substitution"
+    #     defaultBranch: main
+    #     sourcePath: ./Testing_modules
+
+    - id: open-pr
+      name: Open PR to existing repo
+      action: publish:github:pull-request
+      input:
+        repoUrl: github.com?owner=SHARUKHISN2&repo=Shark_Git
+        branchName: test-template-update
+        title: "Test substitution output"
+        description: "This PR contains the substituted main.tf from Backstage"
+        targetPath: ./output/Testing_module
+
+  output:
+    links:
+      - title: View GitHub Repo
+        url: https://github.com/SHARUKHISN2/Shark_Git
