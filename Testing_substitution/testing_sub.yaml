@@ -53,7 +53,8 @@ spec:
         branchName: test-template-update
         title: "Test substitution output"
         description: "This PR contains the substituted main.tf from Backstage"
-        targetPath: ./output/Testing_module
+        sourcePath: ./output/Testing_module
+        targetPath: ./Testing_module
 
   output:
     links:
