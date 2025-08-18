@@ -1,6 +1,6 @@
 module "test_module" {
   source = "./modules/single-ec2"
   
-  env = "{{ env }}"
-  ami = "{{ ami }}"
+  env = ${{ values.env }}
+  ami = ${{ values.ami }}
 }
